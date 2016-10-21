@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>AskAnything</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" type="text/css" href="/resources/css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="/resources/css/adaptive.css"/>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700,300' rel='stylesheet'
+          type='text/css'/>
+    <meta charset="utf-8"/>
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet"/>
+</head>
+<body>
+<header>
+    <div class="navbar">
+        <div class="menu">
+            <div class="header_logo">
+                <a href="#"><img class="logo" src="/resources/css/img/logo.png"/></a>
+            </div>
+            <section class="header_info">
+                <!--<div class="register">-->
+                    <!--<a href="#"><img src="/resources/css/img/user.png"/></a>-->
+                    <!--<div class="textreg"><a href="#"><span>Реестрация</span></a></div>-->
+                <!--</div>-->
+                <div class="logout">
+                    <a href="/"><img src="/resources/css/img/logout.png"/>
+                    <div class="textreg"><span>Вход</span></div></a>
+                </div>
+            </section>
+        </div>
+    </div>
+</header>
+<main>
+    <form class="regform" method="post" th:object="${user}">
+        <div>
+            <p>First name</p><input type="text" th:field="*{firstName}"/>
+            <p>Last name</p><input type="text" th:field="*{lastName}"/>
+            <p>UserName</p><input type="text" th:field="*{username}"/>
+            <p>Email</p><input type="text" th:field="*{email}"/>
+            <p>Password</p><input type="password" th:field="*{password}"/>
+            <p>Confirm password</p><input type="password"/>
+            <input type="submit" value="Register"/>
+        </div>
+    </form>
+</main>
+<div class="footer">
+    <div class="copyright">©Копирайт бай Вадимка</div>
+</div>
+</body>
+
+</html>
