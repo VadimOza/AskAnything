@@ -34,7 +34,10 @@ header {
     margin-right: 10px;
 }
 
-
+.register img{
+    width: 40px;
+    height: 40px;
+}
 
 
 .menu {
