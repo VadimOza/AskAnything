@@ -10,7 +10,7 @@ import java.util.*;
  * Created by root on 21.10.16.
  */
 
-@Component
+
 public class TestUserDAO implements UserDao {
 
     private Set<User> registeredUsers = new HashSet<>();

@@ -43,6 +43,8 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         return driverManagerDataSource;
     }
 
+
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.jdbcAuthentication().dataSource(dbase);

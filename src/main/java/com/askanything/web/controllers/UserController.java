@@ -21,17 +21,18 @@ public class UserController {
     UserDao userDao;
 
     @RequestMapping("/{username}")
-    public String showUserPage(@PathVariable String username, Model model){
+    public String showUserPage(@PathVariable String username, Model model) {
         User user = userDao.getUserByUserName(username);
-        if (user!=null) {
+        if (user != null) {
             model.addAttribute("user", user);
             return "user-page";
         }
         throw new UserNotFoundException();
+
     }
 
     @RequestMapping("/answers")
-    public String showAnswers(){
+    public String showAnswers() {
         return "answerit";
     }
 
