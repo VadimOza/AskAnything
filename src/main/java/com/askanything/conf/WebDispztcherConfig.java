@@ -1,5 +1,6 @@
 package com.askanything.conf;
 
+import com.askanything.conf.security.WebSecurity;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 /**
@@ -10,7 +11,7 @@ public class WebDispztcherConfig extends AbstractAnnotationConfigDispatcherServl
 
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return null;
+        return new Class[] {WebSecurity.class};
     }
 
     @Override

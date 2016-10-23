@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
     <title>AskAnything</title>
@@ -22,9 +22,10 @@
 <main>
     <div class="regandlogin">
         <div>
-            <form method="post">
+            <form name='f' method="post" th:action="@{/login}" >
                 <input class="logininfo" name="username" type="text" placeholder="User name"/>
                 <input class="logininfo" name="password" type="password" placeholder="password"/>
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
                 <div>
                     <input type="submit" value="Log in"/>
                     <a href="/registration"><input type="button" value="Registration"/></a>
