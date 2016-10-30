@@ -17,9 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Collection;
 
-/**
- * Created by root on 19.10.16.
- */
+
 @Controller
 @RequestMapping("/")
 public class IndexAndRegController {
@@ -78,6 +76,7 @@ public class IndexAndRegController {
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public String regNewUser(User user) {
-        return  userDao.regNewUser(user) ? "redirect:/"+user.getUsername() : "registration";
+        user.setRole("ROLE_USER");
+        return  userDao.regNewUser(user) ? "redirect:/user/"+user.getUsername() : "registration";
     }
 }

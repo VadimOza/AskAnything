@@ -7,11 +7,9 @@ import org.springframework.stereotype.Component;
 import javax.sql.DataSource;
 import java.sql.*;
 
-/**
- * Created by root on 23.10.16.
- */
 
-@Component
+
+//@Component
 public class MySqlDAO implements UserDao {
 
     @Autowired

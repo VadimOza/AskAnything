@@ -2,7 +2,7 @@
     .main_textarea textarea {
         width: 100%;
         height: 220px;
-        border-left-width: 0px;
+        border-left-width: 0;
     }
     
     .online {

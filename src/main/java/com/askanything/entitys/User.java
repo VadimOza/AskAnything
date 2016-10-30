@@ -1,18 +1,42 @@
 package com.askanything.entitys;
 
+import com.askanything.entitys.Tables.Authorities;
+
+import javax.persistence.*;
 import java.util.Objects;
 
-/**
- * Created by root on 21.10.16.
- */
+
+@Entity
+@Table(name = "users")
+@SecondaryTable(name = "authorities")
 public class User {
-    private long id;
+
+    @Id
+    @Column(name = "username")
     private String username;
+
+    @Column(name = "password")
     private String password;
+
+    @Column(name = "email")
     private String email;
+
+    @Column(name = "fname")
     private String firstName;
+
+    @Column(name = "lname")
     private String lastName;
 
+    @Column(table = "authorities")
+    private String authority;
+
+    public String getRole() {
+        return authority;
+    }
+
+    public void setRole(String role) {
+        this.authority = role;
+    }
 
     public User setUsername(String username) {
         this.username = username;
@@ -76,13 +100,11 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return id == user.id &&
-                Objects.equals(username, user.username) &&
-                Objects.equals(email, user.email);
+        return  Objects.equals(username, user.username);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, username, email);
+        return Objects.hash(username, email);
     }
 }
