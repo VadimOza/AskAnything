@@ -9,7 +9,7 @@ import java.sql.*;
 
 
 
-//@Component
+@Component
 public class MySqlDAO implements UserDao {
 
     @Autowired
@@ -21,7 +21,12 @@ public class MySqlDAO implements UserDao {
         Statement request;
         PreparedStatement stmt;
         PreparedStatement insertRole;
+        Savepoint save = null;
+        Connection conRollBack = null;
         try ( Connection con = dataSource.getConnection()) {
+            conRollBack = con;
+            con.setAutoCommit(false);
+            save = con.setSavepoint();
             request = con.createStatement();
             stmt = con.prepareStatement("insert into users(username, password, fname, lname, email,enabled) value(?,?,?,?,?,?)");
             ResultSet rs = request.executeQuery("select username from users");
@@ -37,7 +42,7 @@ public class MySqlDAO implements UserDao {
                 insertRole.setString(2,"ROLE_USER");
                 stmt.execute();
                 insertRole.execute();
-
+                con.commit();
                 return true;
             }else {
                 return false;
@@ -45,6 +50,20 @@ public class MySqlDAO implements UserDao {
 
         } catch (SQLException e) {
             e.printStackTrace();
+
+            if(conRollBack!=null && save!=null) try {
+                conRollBack.rollback(save);
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
+
+        }
+        finally {
+            if(conRollBack!=null) try {
+                conRollBack.setAutoCommit(true);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return false;
     }

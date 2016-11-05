@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>AskAnything</title>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -23,8 +23,8 @@
                     <!--<div class="textreg"><a href="#"><span>Реестрация</span></a></div>-->
                 <!--</div>-->
                 <div class="logout">
-                    <a href="#"><img src="/resources/css/img/logout.png"/></a>
-                    <div class="textreg"><a href="#"><span>Вход</span></a></div>
+                    <a href="/logout"><img src="/resources/css/img/logout.png"/></a>
+                    <div class="textreg"><a href="#"><span>Выход</span></a></div>
                 </div>
             </section>
         </div>
@@ -32,8 +32,8 @@
 </header>
 <main>
     <div class="useranswer">
-        <form method="post">
-            <p><span>Vadim:</span>Some question ????</p>
+        <form method="post" th:each="qest  : ${questions}">
+            <p><span th:text="${qest.asker}">Vadim:</span><span th:text="${qest.question}">Some question ????</span></p>
             <textarea name="answer" placeholder="Type your answer here..."></textarea>
             <input type="submit" value="Answer" id="answerAll"/>
         </form>

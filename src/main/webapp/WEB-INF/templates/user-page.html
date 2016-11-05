@@ -4,85 +4,96 @@
 <head>
     <title>AskAnything</title>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <link rel="stylesheet" type="text/css" href="/resources/css/style.css" />
-    <link rel="stylesheet" type="text/css" href="/resources/css/adaptive.css" />
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700,300' rel='stylesheet' type='text/css'/>
-    <meta charset="utf-8" />
-    <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet"/> </head>
-    <body>
-        <header>
-            <div class="navbar">
-                <div class="menu">
-                    <div class="header_logo">
-                        <a href="#"><img class="logo" src="/resources/css/img/logo.png" /></a>
-                    </div>
-                    <section class="header_info">
-                        <div class="register">
-                            <a th:if="${owner==true}" href="/user/answers"><img src="/resources/css/img/messages.png" />
-                            <div class="textreg"> <span>Вопросы</span></div></a>
-                        </div>
-                        <div th:if="${anon!=true}" class="logout">
-                            <a th:href="@{/logout}"><img src="/resources/css/img/logout.png" />
-                            <div class="textreg"><span>Log out</span></div></a>
-                        </div>
-                        <div th:if="${anon==true}" class="logout">
-                            <a th:href="@{/login}"><img src="/resources/css/img/logout.png" />
-                                <div class="textreg"><span>Log in</span></div></a>
-                        </div>
-                    </section>
-                </div>
+    <link rel="stylesheet" type="text/css" href="/resources/css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="/resources/css/adaptive.css"/>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700,300' rel='stylesheet'
+          type='text/css'/>
+    <meta charset="utf-8"/>
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet"/>
+</head>
+<body>
+<header>
+    <div class="navbar">
+        <div class="menu">
+            <div class="header_logo">
+                <a href="#"><img class="logo" src="/resources/css/img/logo.png"/></a>
             </div>
-        </header>
-        <main>
-            <div class="user-info">
-                <div class="block_photo"> <img id="ellipse" src="/resources/css/img/elipse.png" /> <img class="user-image" src="/resources/css/img/user-image.png" /> </div>
-                <div class="main-block">
-                    <div class="user-text-block">
-                        <div class="name" th:text="${user.firstName + ' ' + user.lastName} " >Качок </div><img src="/resources/css/img/map-mark.png" />
-                        <div class="map">Винница, Україна</div>
-                        <div class="comment">Не запитуй мене про розмір!</div>
-                        <div class="social-info">
-                            <div>
-                                <div class="info-nick">
-                                    <p><span>99999</span> Ответов</p>
-                                    <p><span>99999</span> Читателей</p>
-                                </div>
-                                <div class="online">online</div>
-                            </div>
-                            <div class="block-readers">
-                                <div class="nick-name" th:text="'@' + ${user.username}">@gedzilla</div>
-                                <p><span>1,000,000</span> Подписчиков</p>
-                            </div>
-                        </div>
-                    </div>
-                    <p class="main_textarea">
-                        <textarea placeholder=" Задайте ваш вопрос..." class="question"></textarea>
-                    </p>
-                    <p class="main_btn">
-                        <input type="button" id="ask" value="Спросить" />
-                    </p>
+            <section class="header_info">
+                <div class="register">
+                    <a th:if="${owner==true}" href="/user/answers"><img src="/resources/css/img/messages.png"/>
+                        <div class="textreg"><span>Вопросы</span></div>
+                    </a>
                 </div>
-            </div>
-            <div class="history-question">
-                <div class="text-answeres">Ответы</div>
-                <div class="all-answeres">
-                    <div class="answer-background">
-                        <div class="question-block"> <img src="/resources/css/img/asker.png" alt=""/>
-                            <div class="user-question"><a href="#">Вадімка</a> тебя спрашивает:
-                                <p>В тебе мільйон підписників?</p>
-                            </div>
-                            <div class="time">вчера 18:56</div>
-                        </div>
-                        <div class="answer-block"> <img src="/resources/css/img/mini-user.png"/>
-                            <div class="user-answer">В мене мільйон ідей в голові</div>
-                        </div>
-                    </div>
+                <div th:if="${anon!=true}" class="logout">
+                    <a th:href="@{/logout}"><img src="/resources/css/img/logout.png"/>
+                        <div class="textreg"><span>Log out</span></div>
+                    </a>
                 </div>
-            </div>
-        </main>
-        <div class="footer">
-            <div class="copyright">©Копирайт бай Вадимка</div>
+                <div th:if="${anon==true}" class="logout">
+                    <a th:href="@{/login}"><img src="/resources/css/img/logout.png"/>
+                        <div class="textreg"><span>Log in</span></div>
+                    </a>
+                </div>
+            </section>
         </div>
-    </body>
+    </div>
+</header>
+<main>
+    <div class="user-info">
+        <div class="block_photo"><img id="ellipse" src="/resources/css/img/elipse.png"/> <img class="user-image"
+                                                                                              src="/resources/css/img/user-image.png"/>
+        </div>
+        <div class="main-block">
+            <div class="user-text-block">
+                <div class="name" th:text="${user.firstName + ' ' + user.lastName} ">Качок</div>
+                <img src="/resources/css/img/map-mark.png"/>
+                <div class="map">Винница, Україна</div>
+                <div class="comment">Не запитуй мене про розмір!</div>
+                <div class="social-info">
+                    <div>
+                        <div class="info-nick">
+                            <p><span>99999</span> Ответов</p>
+                            <p><span>99999</span> Читателей</p>
+                        </div>
+                        <div class="online">online</div>
+                    </div>
+                    <div class="block-readers">
+                        <div class="nick-name" th:text="'@' + ${user.username}">@gedzilla</div>
+                        <p><span>1,000,000</span> Подписчиков</p>
+                    </div>
+                </div>
+            </div>
+            <form method="post" th:object="${question}">
+                <p class="main_textarea">
+                    <textarea placeholder=" Задайте ваш вопрос..." class="question" th:field="*{question}"></textarea>
+                </p>
+                <p class="main_btn">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                    <input type="submit" id="ask" value="Спросить"/>
+                </p>
+            </form>
+        </div>
+    </div>
+    <div class="history-question">
+        <div class="text-answeres">Ответы</div>
+        <div class="all-answeres">
+            <div class="answer-background">
+                <div class="question-block"><img src="/resources/css/img/asker.png" alt=""/>
+                    <div class="user-question"><a href="#">Вадімка</a> тебя спрашивает:
+                        <p>В тебе мільйон підписників?</p>
+                    </div>
+                    <div class="time">вчера 18:56</div>
+                </div>
+                <div class="answer-block"><img src="/resources/css/img/mini-user.png"/>
+                    <div class="user-answer">В мене мільйон ідей в голові</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<div class="footer">
+    <div class="copyright">©Копирайт бай Вадимка</div>
+</div>
+</body>
 
-    </html>
+</html>

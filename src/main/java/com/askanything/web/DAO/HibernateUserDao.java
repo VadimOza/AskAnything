@@ -11,8 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.inject.Inject;
 
 
-@Repository
-@ComponentScan("com.askanything.conf.security")
+//@Repository
+//@ComponentScan("com.askanything.conf.security")
 public class HibernateUserDao implements UserDao {
 
     @Inject
