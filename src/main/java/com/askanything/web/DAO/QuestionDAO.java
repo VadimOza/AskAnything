@@ -10,6 +10,6 @@ import java.util.List;
 public interface QuestionDAO {
     Question getQuetionByUsername(String username);
     List<Question> getUnansweredQuestions(String username);
-    Question getAnsweredQuestions(String username);
+    List<Question> getAnsweredQuestions(String username);
     boolean askUser(String username,Question question);
 }

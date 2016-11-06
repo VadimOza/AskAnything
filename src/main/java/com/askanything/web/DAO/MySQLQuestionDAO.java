@@ -47,10 +47,29 @@ public class MySQLQuestionDAO implements QuestionDAO {
     }
 
     @Override
-    public Question getAnsweredQuestions(String username) {
+    public List<Question> getAnsweredQuestions(String username) {
+        try (Connection con = dataSource.getConnection()) {
+            PreparedStatement stmt = con.prepareStatement("SELECT q.question,q.answer,q.asker,q.date FROM questions q inner join asks a ON q.id=a.questionId " +
+                    "WHERE a.username=? " +
+                    "AND q.answer is not null");
+            stmt.setString(1, username);
+            ResultSet rs = stmt.executeQuery();
+            List<Question> unansweredQuestions = new ArrayList<>();
+            while (rs.next()){
+                String s = rs.getString("asker");
+                unansweredQuestions.add(new Question()
+                        .setQuestion(rs.getString("question"))
+                        .setAnswer(rs.getString("answer"))
+                        .setDate(rs.getTimestamp("date"))
+                        .setAsker(s!=null ? s : "unnonimus"));
+                System.out.printf("\n\n\n\n " + rs.getTimestamp("date") + "\n\n\n\n");
+            }
+
+            return unansweredQuestions;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return null;
-
-
     }
 
     @Override

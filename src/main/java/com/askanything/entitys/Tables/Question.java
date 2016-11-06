@@ -1,7 +1,7 @@
 package com.askanything.entitys.Tables;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.sql.Timestamp;
 
 /**
  * Created by root on 31.10.16.
@@ -19,7 +19,7 @@ public class Question {
     String question;
 
     @Column(name = "date")
-    Date date;
+    Timestamp date;
 
     @Column(name = "answer")
     String answer;
@@ -35,7 +35,7 @@ public class Question {
         return question;
     }
 
-    public Date getDate() {
+    public Timestamp getDate() {
         return date;
     }
 
@@ -57,7 +57,7 @@ public class Question {
         return this;
     }
 
-    public Question setDate(Date date) {
+    public Question setDate(Timestamp date) {
         this.date = date;
         return this;
     }

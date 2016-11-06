@@ -77,15 +77,15 @@
     <div class="history-question">
         <div class="text-answeres">Ответы</div>
         <div class="all-answeres">
-            <div class="answer-background">
-                <div class="question-block"><img src="/resources/css/img/asker.png" alt=""/>
-                    <div class="user-question"><a href="#">Вадімка</a> тебя спрашивает:
-                        <p>В тебе мільйон підписників?</p>
+            <div class="answer-background" th:each="qest  : ${answeredQuestions}">
+                <div  class="question-block"><img src="/resources/css/img/asker.png" alt=""/>
+                    <div class="user-question"><a th:text="${qest.asker}" href="#">Вадімка</a> тебя спрашивает:
+                        <p th:text="${qest.question}">В тебе мільйон підписників?</p>
                     </div>
-                    <div class="time">вчера 18:56</div>
+                    <div class="time" th:text="${qest.date}">вчера 18:56</div>
                 </div>
                 <div class="answer-block"><img src="/resources/css/img/mini-user.png"/>
-                    <div class="user-answer">В мене мільйон ідей в голові</div>
+                    <div class="user-answer" th:text="${qest.answer}">В мене мільйон ідей в голові</div>
                 </div>
             </div>
         </div>

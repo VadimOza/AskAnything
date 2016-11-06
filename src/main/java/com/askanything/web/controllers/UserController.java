@@ -41,6 +41,7 @@ public class UserController {
             model.addAttribute("anon", true);
         }
         model.addAttribute("question",new Question());
+        model.addAttribute("answeredQuestions",questionDAO.getAnsweredQuestions(username));
         User user = userDao.getUserByUserName(username);
         if (user != null) {
             model.addAttribute("user", user);
