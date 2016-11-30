@@ -1,24 +1,34 @@
 package com.askanything.entitys;
 
 import com.askanything.entitys.Tables.Authorities;
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.CascadeType;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 
 @Entity
 @Table(name = "users")
-@SecondaryTable(name = "authorities")
-public class User {
+public class User implements UserDetails {
 
-    @Id
+    @Id @GeneratedValue
+    private long userId;
+
     @Column(name = "username")
     private String username;
 
-    @Column(name = "password")
+
     private String password;
 
-    @Column(name = "email")
+
     private String email;
 
     @Column(name = "fname")
@@ -27,19 +37,36 @@ public class User {
     @Column(name = "lname")
     private String lastName;
 
-    @Column(table = "authorities")
-    private String authority;
+    @OneToMany(cascade = javax.persistence.CascadeType.PERSIST)
+    private Set<Authorities> authority = new HashSet<>();
 
-    public String getRole() {
+    private boolean enabled;
+
+    public Set<Authorities> getAuthority() {
         return authority;
     }
 
-    public void setRole(String role) {
-        this.authority = role;
+    public User setAuthority(Set<Authorities> authority) {
+        this.authority = authority;
+        return this;
+    }
+
+    public User setEnabled(boolean enabled) {
+        this.enabled = enabled;
+        return this;
     }
 
     public User setUsername(String username) {
         this.username = username;
+        return this;
+    }
+
+    public long getUserId() {
+        return userId;
+    }
+
+    public User setUserId(long userId) {
+        this.userId = userId;
         return this;
     }
 
@@ -75,8 +102,32 @@ public class User {
     }
 
     public String getUsername() {
-
         return username;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return false;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return authority;
     }
 
     public String getPassword() {
@@ -100,11 +151,15 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return  Objects.equals(username, user.username);
+        return Objects.equals(username, user.username);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(username, email);
+    }
+
+    public void addAthority(Authorities ath){
+        authority.add(ath);
     }
 }

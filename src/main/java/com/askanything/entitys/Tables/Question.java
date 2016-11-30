@@ -6,9 +6,9 @@ import java.sql.Timestamp;
 /**
  * Created by root on 31.10.16.
  */
-@Entity
-@Table(name = "questions")
-@SecondaryTable(name="users")
+//@Entity
+//@Table(name = "questions")
+//@SecondaryTable(name="users")
 public class Question {
 
     @Id

@@ -1,5 +1,6 @@
 package com.askanything.web.controllers;
 
+import com.askanything.entitys.Tables.Authorities;
 import com.askanything.entitys.User;
 import com.askanything.web.DAO.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,7 +77,8 @@ public class IndexAndRegController {
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public String regNewUser(User user) {
-        user.setRole("ROLE_USER");
+//        user.setRole("ROLE_USER");
+        user.addAthority(new Authorities().setAuthority("ROLE_USER"));
         return  userDao.regNewUser(user) ? "redirect:/user/"+user.getUsername() : "registration";
     }
 }

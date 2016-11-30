@@ -5,10 +5,10 @@ import javax.persistence.*;
 /**
  * Created by root on 31.10.16.
  */
-@Entity
-@Table(name = "asks")
-@SecondaryTables({@SecondaryTable(name="users"),
-        @SecondaryTable(name = "questions")})
+//@Entity
+//@Table(name = "asks")
+//@SecondaryTables({@SecondaryTable(name="users"),
+//        @SecondaryTable(name = "questions")})
 public class Asks {
 
     @Id

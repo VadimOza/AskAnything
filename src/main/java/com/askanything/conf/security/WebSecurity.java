@@ -54,24 +54,25 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 
     }
 
-//    @Bean
-//    public LocalSessionFactoryBean sessionFactory(DataSource dataSource){
-//        LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
-//        sessionFactory.setDataSource(dataSource);
-//        sessionFactory.setPackagesToScan("com.askanything.entitys");
-//        Properties p = sessionFactory.getHibernateProperties();
-//        p.setProperty("hibernate.dialect","org.hibernate.dialect.MySQLDialect");
-//        p.setProperty("hibernate.id.new_generator_mappings","false");
-//        return sessionFactory;
-//    }
+    @Bean
+    public LocalSessionFactoryBean sessionFactory(DataSource dataSource){
+        LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
+        sessionFactory.setDataSource(dataSource);
+        sessionFactory.setPackagesToScan("com.askanything.entitys");
+        Properties p = sessionFactory.getHibernateProperties();
+        p.setProperty("hibernate.dialect","org.hibernate.dialect.MySQLDialect");
+        p.setProperty("hibernate.id.new_generator_mappings","false");
+        p.setProperty("hibernate.hbm2ddl.auto","create-drop");
+        return sessionFactory;
+    }
 
-//    @Bean
-//    @Autowired
-//    public HibernateTransactionManager transactionManager(final SessionFactory sessionFactory) {
-//        final HibernateTransactionManager txManager = new HibernateTransactionManager();
-//        txManager.setSessionFactory(sessionFactory);
-//        return txManager;
-//    }
+    @Bean
+    @Autowired
+    public HibernateTransactionManager transactionManager(final SessionFactory sessionFactory) {
+        final HibernateTransactionManager txManager = new HibernateTransactionManager();
+        txManager.setSessionFactory(sessionFactory);
+        return txManager;
+    }
 
     @Bean
     public PersistenceExceptionTranslationPostProcessor exceptionTranslation() {

@@ -9,7 +9,7 @@ import java.sql.*;
 
 
 
-@Component
+//@Component
 public class MySqlDAO implements UserDao {
 
     @Autowired
