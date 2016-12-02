@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 /**
  * Created by root on 21.10.16.
@@ -41,10 +42,17 @@ public class UserController {
             model.addAttribute("anon", true);
         }
         model.addAttribute("question",new Question());
-        model.addAttribute("answeredQuestions",questionDAO.getAnsweredQuestions(username));
         User user = userDao.getUserByUserName(username);
         if (user != null) {
             model.addAttribute("user", user);
+            int answers =0;
+            for (Question q :
+                    user.getQuestions()) {
+                if (q.getAnswer()!=null)
+                    answers++;
+            }
+            model.addAttribute("answeres",answers);
+            model.addAttribute("answeredQuestions",questionDAO.getAnsweredQuestions(user));
             return "user-page";
         }
         throw new UserNotFoundException();

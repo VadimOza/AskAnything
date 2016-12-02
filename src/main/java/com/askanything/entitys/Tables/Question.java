@@ -1,13 +1,15 @@
 package com.askanything.entitys.Tables;
 
+import com.askanything.entitys.User;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
  * Created by root on 31.10.16.
  */
-//@Entity
-//@Table(name = "questions")
+@Entity
+@Table(name = "questions")
 //@SecondaryTable(name="users")
 public class Question {
 
@@ -24,8 +26,20 @@ public class Question {
     @Column(name = "answer")
     String answer;
 
-    @Column(table = "users")
-    String asker;
+    @ManyToOne
+    User user;
+
+    @ManyToOne
+    User asker;
+
+    public User getAsker() {
+        return asker;
+    }
+
+    public Question setAsker(User asker) {
+        this.asker = asker;
+        return this;
+    }
 
     public long getId() {
         return id;
@@ -43,8 +57,8 @@ public class Question {
         return answer;
     }
 
-    public String getAsker() {
-        return asker;
+    public User getUser() {
+        return user;
     }
 
     public Question setId(long id) {
@@ -67,8 +81,8 @@ public class Question {
         return this;
     }
 
-    public Question setAsker(String asker) {
-        this.asker = asker;
+    public Question setUser(User asker) {
+        this.user = asker;
         return this;
     }
 }

@@ -1,6 +1,7 @@
 package com.askanything.entitys;
 
 import com.askanything.entitys.Tables.Authorities;
+import com.askanything.entitys.Tables.Question;
 import org.hibernate.annotations.*;
 import org.hibernate.annotations.CascadeType;
 import org.springframework.security.core.GrantedAuthority;
@@ -9,10 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 
 @Entity
@@ -37,10 +35,23 @@ public class User implements UserDetails {
     @Column(name = "lname")
     private String lastName;
 
-    @OneToMany(cascade = javax.persistence.CascadeType.PERSIST)
+    @OneToMany(cascade = javax.persistence.CascadeType.PERSIST, fetch = FetchType.EAGER)
     private Set<Authorities> authority = new HashSet<>();
 
+    @OneToMany(cascade = javax.persistence.CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Question> questions = new ArrayList<>();
+
     private boolean enabled;
+
+
+    public List<Question> getQuestions() {
+        return questions;
+    }
+
+    public User setQuestions(List<Question> questions) {
+        this.questions = questions;
+        return this;
+    }
 
     public Set<Authorities> getAuthority() {
         return authority;

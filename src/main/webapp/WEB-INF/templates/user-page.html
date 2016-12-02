@@ -52,7 +52,7 @@
                 <div class="social-info">
                     <div>
                         <div class="info-nick">
-                            <p><span>99999</span> Ответов</p>
+                            <p><span th:text="${answeres}">99999</span> Ответов</p>
                             <p><span>99999</span> Читателей</p>
                         </div>
                         <div class="online">online</div>
@@ -79,7 +79,7 @@
         <div class="all-answeres">
             <div class="answer-background" th:each="qest  : ${answeredQuestions}">
                 <div  class="question-block"><img src="/resources/css/img/asker.png" alt=""/>
-                    <div class="user-question"><a th:text="${qest.asker}" href="#">Вадімка</a> тебя спрашивает:
+                    <div class="user-question"><a th:text="${qest.asker.username}" href="#">Вадімка</a> тебя спрашивает:
                         <p th:text="${qest.question}">В тебе мільйон підписників?</p>
                     </div>
                     <div class="time" th:text="${qest.date}">вчера 18:56</div>

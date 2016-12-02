@@ -33,7 +33,7 @@
 <main>
     <div class="useranswer">
         <form method="post" th:each="qest  : ${questions}">
-            <p><span th:text="${qest.asker}">Vadim:</span><span th:text="${qest.question}">Some question ????</span></p>
+            <p><span th:text="${qest.user}">Vadim:</span><span th:text="${qest.question}">Some question ????</span></p>
             <textarea name="answer" placeholder="Type your answer here..."></textarea>
             <input type="submit" value="Answer" id="answerAll"/>
         </form>

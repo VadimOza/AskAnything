@@ -5,6 +5,7 @@ import com.askanything.entitys.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -57,7 +58,8 @@ public class HibernateUserDao implements UserDao,UserDetailsService {
     @Override
     public User getUserByUserName(String username) {
         try(Session session = sessionFactory.openSession()) {
-            return session.get(User.class, username);
+            Query query = session.createQuery("from User where username = ?").setParameter(0, username);
+            return (User) query.list().get(0);
         } catch (Exception ex){
             return null;
         }
