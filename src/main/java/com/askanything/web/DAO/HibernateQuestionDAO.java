@@ -32,7 +32,6 @@ public class HibernateQuestionDAO implements QuestionDAO{
         List<Question> unanswered = new ArrayList<>(allQuestions.size());
         for (Question q :
                 allQuestions) {
-            System.out.println("\n\n\n\n\n\n\n [" + q.getAnswer() + "] \n\n\n\n\n\n\n");
             if (q.getAnswer() == null || q.getAnswer().equals(""))
                 unanswered.add(q);
         }
@@ -66,5 +65,21 @@ public class HibernateQuestionDAO implements QuestionDAO{
             session.getTransaction().commit();
         }
         return true;
+    }
+
+    @Override
+    public void answerQuestion(Question question) {
+        User user = userDao.getUserByUserName(question.getUser().getUsername());
+        List<Question> questions = user.getQuestions();
+        System.out.println(question+"\n\n\n\n");
+        questions.forEach(System.out::println);
+        int idx = questions.indexOf(question);
+        System.out.println();
+        questions.get(idx).setAnswer(question.getAnswer());
+        try(Session session = sessionFactory.openSession()){
+            session.beginTransaction();
+            session.update(user);
+            session.getTransaction().commit();
+        }
     }
 }

@@ -5,18 +5,15 @@ import com.askanything.entitys.User;
 import com.askanything.exceptions.UserNotFoundException;
 import com.askanything.web.DAO.QuestionDAO;
 import com.askanything.web.DAO.UserDao;
-import com.sun.org.apache.xpath.internal.operations.Mod;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
+import java.sql.Timestamp;
 import java.util.List;
-import java.util.function.Consumer;
 
 /**
  * Created by root on 21.10.16.
@@ -73,5 +70,27 @@ public class UserController {
         model.addAttribute("questions",questions);
         return "answerit";
     }
+
+    @RequestMapping(value = "/answers",method = RequestMethod.POST)
+    public String answerQuestion(@RequestParam String answer, @RequestParam String question){
+        System.out.println("\n\n\n " + answer + " " + question + " \n\n\n");
+        return "redirect:/user/answers";
+    }
+
+
+    @RequestMapping(value = "/asynkAnswers", method = RequestMethod.POST)
+    @ResponseBody
+        public String answerItAsynk(@RequestBody Question question){
+        String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
+        question.setUser(userDao.getUserByUserName(currentUser));
+        questionDAO.answerQuestion(question);
+        System.out.println("\n\n\n\n" + question.getQuestion() + " " + question.getAnswer());
+        return "success!!";
+    }
+
+
+
+
+
 
 }

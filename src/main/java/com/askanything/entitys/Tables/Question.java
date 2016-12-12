@@ -1,9 +1,12 @@
 package com.askanything.entitys.Tables;
 
 import com.askanything.entitys.User;
+import com.askanything.web.Services.CustomerDateAndTimeDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.util.Date;
+import java.util.Objects;
 
 /**
  * Created by root on 31.10.16.
@@ -13,6 +16,8 @@ import java.sql.Timestamp;
 //@SecondaryTable(name="users")
 public class Question {
 
+
+
     @Id
     @GeneratedValue
     long id;
@@ -20,8 +25,9 @@ public class Question {
     @Column(name = "question")
     String question;
 
+    @JsonDeserialize(using=CustomerDateAndTimeDeserialize.class)
     @Column(name = "date")
-    Timestamp date;
+    Date date;
 
     @Column(name = "answer")
     String answer;
@@ -49,7 +55,7 @@ public class Question {
         return question;
     }
 
-    public Timestamp getDate() {
+    public Date getDate() {
         return date;
     }
 
@@ -71,7 +77,7 @@ public class Question {
         return this;
     }
 
-    public Question setDate(Timestamp date) {
+    public Question setDate(Date date) {
         this.date = date;
         return this;
     }
@@ -84,5 +90,32 @@ public class Question {
     public Question setUser(User asker) {
         this.user = asker;
         return this;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Question question1 = (Question) o;
+        return Objects.equals(question, question1.question) &&
+                Objects.equals(date, question1.date) &&
+                Objects.equals(user, question1.user);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(question, date, user);
+    }
+
+    @Override
+    public String toString() {
+        return "Question{" +
+                "id=" + id +
+                ", question='" + question + '\'' +
+                ", date=" + date +
+                ", answer='" + answer + '\'' +
+                ", user=" + user +
+                ", asker=" + asker +
+                '}';
     }
 }
