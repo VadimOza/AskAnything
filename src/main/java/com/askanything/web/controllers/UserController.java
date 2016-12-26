@@ -5,14 +5,12 @@ import com.askanything.entitys.User;
 import com.askanything.exceptions.UserNotFoundException;
 import com.askanything.web.DAO.QuestionDAO;
 import com.askanything.web.DAO.UserDao;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -68,6 +66,7 @@ public class UserController {
         String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
         List<Question> questions = questionDAO.getUnansweredQuestions(currentUser);
         model.addAttribute("questions",questions);
+        model.addAttribute("countOfQuestions", questions.size());
         return "answerit";
     }
 
@@ -84,8 +83,8 @@ public class UserController {
         String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
         question.setUser(userDao.getUserByUserName(currentUser));
         questionDAO.answerQuestion(question);
-        System.out.println("\n\n\n\n" + question.getQuestion() + " " + question.getAnswer());
-        return "success!!";
+        System.out.println("\n\n\n\n" + question.getQuestion() + " " + question.getAnswer() + " " + question.getDate());
+        return "{}";
     }
 
 

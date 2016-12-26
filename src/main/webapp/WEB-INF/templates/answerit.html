@@ -15,6 +15,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 </head>
 <body>
+<script src="/resources/script/AnswerIt.js" type="text/javascript"></script>
 <header>
     <div class="navbar">
         <div class="menu">
@@ -31,61 +32,21 @@
     </div>
 </header>
 <main>
-    <div class="useranswer">
+    <span hidden="true" id="countOfQuestions" th:text="${countOfQuestions}"></span>
+    <div class="useranswer" id="useranswers">
+        <img id="noQuestions" src="/resources/css/img/noQuestions.png"/>
         <form method="post" th:each="qest  : ${questions}" id="lolik">
-            <p><span th:text="${qest.user.username}">Vadim:</span><span th:name="question"
+            <p><span th:text="${qest.user.username}">Vadim:</span><span id="question" th:name="question"
                                                                         th:text="${qest.question}"></span></p>
-            <!--<input type="text" name="question" th:value="${qest.question}"  disabled="true">Some question ????</input>-->
-            <!--<input type="text" name="question" th:value="${qest.question}">Some question ????</input>-->
-            <textarea name="answer" placeholder="Type your answer here..."></textarea>
-            <span th:text="${qest.date}"></span>
+            <textarea id="answer" name="answer" placeholder="Type your answer here..."></textarea>
+            <span id="date" th:text="${qest.date}"></span>
             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-            <input type="button" value="Answer" id="answerAll" onclick="answerIt(this)"/>
+            <input type="button" value="Answer" class="answerAll" id="answerAll"/>
         </form>
     </div>
 </main>
-<div class="footer">
+<div class="footer" onload="zeroQuestions();">
     <div class="copyright">©Копирайт бай Вадимка</div>
 </div>
-<script>
-    var httpRequest;
-    var formToHide;
-
-    function answerIt(button) {
-        formToHide = button.parentElement;
-        var question = button.parentElement.childNodes[1].childNodes[1].innerHTML;
-        var answer = button.parentElement.childNodes[7].value;
-        var date = button.parentElement.childNodes[9].innerHTML;
-
-        var token = $("meta[name='_csrf']").attr("content");
-        var header = $("meta[name='_csrf_header']").attr("content");
-
-        httpRequest = new XMLHttpRequest();
-
-        if (!httpRequest) {
-            alert("Giving up :( Cannot create an XMLHTTP instance!");
-            return false;
-        }
-        httpRequest.onreadystatechange = alertContents;
-        httpRequest.open('POST', "/user/asynkAnswers");
-        httpRequest.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-        httpRequest.setRequestHeader(header, token);
-        httpRequest.send(JSON.stringify({'question': question, 'answer': answer, 'date': date}));
-
-    }
-
-    function alertContents() {
-        if (httpRequest.readyState === XMLHttpRequest.DONE) {
-            if (httpRequest.status === 200) {
-                alert(httpRequest.responseText);
-                formToHide.style.display = 'none';
-            } else {
-                alert('There was a problem with the request.' + httpRequest.status);
-            }
-        }
-    }
-
-
-</script>
 </body>
 </html>
