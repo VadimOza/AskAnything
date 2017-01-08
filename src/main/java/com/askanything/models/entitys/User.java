@@ -1,15 +1,11 @@
-package com.askanything.entitys;
+package com.askanything.models.entitys;
 
-import com.askanything.entitys.Tables.Authorities;
-import com.askanything.entitys.Tables.Question;
-import org.hibernate.annotations.*;
-import org.hibernate.annotations.CascadeType;
+import com.askanything.models.entitys.Tables.Authorities;
+import com.askanything.models.entitys.Tables.Question;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import javax.persistence.Entity;
-import javax.persistence.Table;
 import java.util.*;
 
 
@@ -17,28 +13,24 @@ import java.util.*;
 @Table(name = "users")
 public class User implements UserDetails {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     private long userId;
 
-    @Column(name = "username")
     private String username;
-
 
     private String password;
 
-
     private String email;
 
-    @Column(name = "fname")
     private String firstName;
 
-    @Column(name = "lname")
     private String lastName;
 
-    @OneToMany(cascade = javax.persistence.CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
     private Set<Authorities> authority = new HashSet<>();
 
-    @OneToMany(cascade = javax.persistence.CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
     private List<Question> questions = new ArrayList<>();
 
     private boolean enabled;
@@ -170,7 +162,7 @@ public class User implements UserDetails {
         return Objects.hash(username, email);
     }
 
-    public void addAthority(Authorities ath){
+    public void addAthority(Authorities ath) {
         authority.add(ath);
     }
 }

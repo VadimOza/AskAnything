@@ -1,12 +1,10 @@
 package com.askanything.web.controllers;
 
-import com.askanything.entitys.Tables.Authorities;
-import com.askanything.entitys.User;
-import com.askanything.web.DAO.UserDao;
+import com.askanything.models.DAO.UserDao;
+import com.askanything.models.entitys.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
@@ -23,35 +21,33 @@ import java.util.Collection;
 @RequestMapping("/")
 public class IndexAndRegController {
 
-    public IndexAndRegController() {
-    }
+    private final UserDao userDao;
 
     @Autowired
-    private UserDao userDao;
-
     public IndexAndRegController(UserDao userDao) {
         this.userDao = userDao;
     }
+
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String index() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Collection<? extends GrantedAuthority> authorrities = auth.getAuthorities();
         for (GrantedAuthority authorrity : authorrities) {
-            if(authorrity.getAuthority().equals("ROLE_USER")){
+            if (authorrity.getAuthority().equals("ROLE_USER")) {
                 return "redirect:/user/" + auth.getName();
             }
         }
         return "index";
     }
 
-    @RequestMapping(value="/logout", method = RequestMethod.GET)
-    public String logoutPage (HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth != null){
+        if (auth != null) {
             new SecurityContextLogoutHandler().logout(request, response, auth);
         }
-        return "redirect:/login?logout";//You can redirect wherever you want, but generally it's a good practice to show login screen again.
+        return "redirect:/login?logout";
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -65,20 +61,17 @@ public class IndexAndRegController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Collection<? extends GrantedAuthority> authorrities = auth.getAuthorities();
         for (GrantedAuthority authorrity : authorrities) {
-            if(authorrity.getAuthority().equals("ROLE_USER")){
-                model.addAttribute("user",userDao.getUserByUserName(auth.getName()));
-                return "redirect:/user/" + auth.getName();
+            if (authorrity.getAuthority().equals("ROLE_USER")) {
+                model.addAttribute("user", userDao.getUserByUserName(auth.getName()));
+                return "redirect:/login";
             }
         }
-
         model.addAttribute("user", new User());
         return "registration";
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public String regNewUser(User user) {
-//        user.setRole("ROLE_USER");
-        user.addAthority(new Authorities().setAuthority("ROLE_USER"));
-        return  userDao.regNewUser(user) ? "redirect:/user/"+user.getUsername() : "registration";
+        return userDao.regNewUser(user) ? "redirect:/user/" + user.getUsername() : "registration";
     }
 }

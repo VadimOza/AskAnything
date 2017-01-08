@@ -34,7 +34,7 @@
 <main>
     <span hidden="true" id="countOfQuestions" th:text="${countOfQuestions}"></span>
     <div class="useranswer" id="useranswers">
-        <img id="noQuestions" src="/resources/css/img/noQuestions.png"/>
+        <a href="/"><img id="noQuestions" src="/resources/css/img/noQuestions.png"/></a>
         <form method="post" th:each="qest  : ${questions}" id="lolik">
             <p><span th:text="${qest.user.username}">Vadim:</span><span id="question" th:name="question"
                                                                         th:text="${qest.question}"></span></p>

@@ -1,6 +1,6 @@
-package com.askanything.entitys.Tables;
+package com.askanything.models.entitys.Tables;
 
-import com.askanything.entitys.User;
+import com.askanything.models.entitys.User;
 import com.askanything.web.Services.CustomerDateAndTimeDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
@@ -9,37 +9,37 @@ import java.util.Date;
 import java.util.Objects;
 
 /**
- * Created by root on 31.10.16.
+ * Created by VadimOz on 31.10.16.
  */
 @Entity
 @Table(name = "questions")
-//@SecondaryTable(name="users")
 public class Question {
-
-
 
     @Id
     @GeneratedValue
-    long id;
+    private long id;
 
     @Column(name = "question")
-    String question;
+    private String question;
 
-    @JsonDeserialize(using=CustomerDateAndTimeDeserialize.class)
+    @JsonDeserialize(using = CustomerDateAndTimeDeserialize.class)
     @Column(name = "date")
-    Date date;
+    private Date date;
 
     @Column(name = "answer")
-    String answer;
+    private String answer;
 
     @ManyToOne
-    User user;
+    private User user;
 
     @ManyToOne
-    User asker;
+    private User asker;
 
     public User getAsker() {
         return asker;
+    }
+
+    public Question() {
     }
 
     public Question setAsker(User asker) {

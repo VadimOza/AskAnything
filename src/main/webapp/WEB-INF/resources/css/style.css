@@ -8,6 +8,7 @@ a {
     color: #fff;
 }
 
+
 header {
     min-width: 540px;
     width: 100%;
@@ -101,7 +102,10 @@ header {
 }
 
 
-
+#noQuestions{
+    display: block;
+    margin: auto;
+}
 
 
 #ask {

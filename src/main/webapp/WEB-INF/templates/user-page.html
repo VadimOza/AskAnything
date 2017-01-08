@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>AskAnything</title>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -63,9 +62,9 @@
                     </div>
                 </div>
             </div>
-            <form method="post" th:object="${question}">
+            <form method="post" th:object="${question}" id="newQuestionForm">
                 <p class="main_textarea">
-                    <textarea placeholder=" Задайте ваш вопрос..." class="question" th:field="*{question}"></textarea>
+                    <textarea placeholder=" Задайте ваш вопрос..." class="question" form="newQuestionForm" name="question"></textarea>
                 </p>
                 <p class="main_btn">
                     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />

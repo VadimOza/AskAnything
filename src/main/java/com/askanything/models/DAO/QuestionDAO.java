@@ -1,15 +1,14 @@
-package com.askanything.web.DAO;
+package com.askanything.models.DAO;
 
-import com.askanything.entitys.Tables.Question;
-import com.askanything.entitys.User;
+import com.askanything.models.entitys.Tables.Question;
+import com.askanything.models.entitys.User;
 
 import java.util.List;
 
 /**
- * Created by root on 05.11.16.
+ * Created by VadimOz on 05.11.16.
  */
 public interface QuestionDAO {
-    //    Question getQuetionByUsername(String username);
     List<Question> getUnansweredQuestions(String username);
 
     List<Question> getAnsweredQuestions(User username);

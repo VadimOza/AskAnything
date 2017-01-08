@@ -1,17 +1,16 @@
-package com.askanything.entitys.Tables;
+package com.askanything.models.entitys.Tables;
 
-import com.askanything.entitys.User;
+import com.askanything.models.entitys.User;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 
 @Entity
 @Table(name = "authorities")
 public class Authorities implements GrantedAuthority {
 
-    @Id
+    @Id @GeneratedValue
     private long authId;
 
     @Column(name = "authority")

@@ -15,7 +15,6 @@ function answerItJquery() {
         var date = $(this).parent().find("#date").text();
         formToHide = $(this).parent();
 
-
         $.ajax({
             dataType: 'json',
             contentType: "application/json",
@@ -25,7 +24,7 @@ function answerItJquery() {
                 xhr.setRequestHeader(header, token);
             },
             data: JSON.stringify({'question': question, 'answer': answer, 'date': date}),
-            success: function (text) {
+            success: function () {
                 count--;
                 zeroQuestions();
                 formToHide.slideUp()(1000);
@@ -33,7 +32,7 @@ function answerItJquery() {
             error: function (text) {
                 alert("Errror!!" + text.responseText);
             }
-        }).success(oneQuestionAnswered).send();
+        }).send();
 
     });
 }
