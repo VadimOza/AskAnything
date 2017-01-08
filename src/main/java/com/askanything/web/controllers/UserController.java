@@ -74,12 +74,6 @@ public class UserController {
         return "answerit";
     }
 
-    @RequestMapping(value = "/answers", method = RequestMethod.POST)
-    public String answerQuestion(@RequestParam String answer, @RequestParam String question) {
-        System.out.println("\n\n\n " + answer + " " + question + " \n\n\n");
-        return "redirect:/user/answers";
-    }
-
 
     @RequestMapping(value = "/asynkAnswers", method = RequestMethod.POST)
     @ResponseBody
@@ -87,7 +81,6 @@ public class UserController {
         String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
         question.setUser(userDao.getUserByUserName(currentUser));
         questionDAO.answerQuestion(question);
-        System.out.println("\n\n\n\n" + question.getQuestion() + " " + question.getAnswer() + " " + question.getDate());
         return "{}";
     }
 

@@ -6,6 +6,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.*;
 
 
@@ -17,14 +19,24 @@ public class User implements UserDetails {
     @GeneratedValue
     private long userId;
 
+    @NotNull(message = "{User.notNull.username}")
+    @Size(min = 4, max = 25, message = "{User.size.username}")
     private String username;
 
+    @NotNull(message = "{User.notNull.password}")
+    @Size(min = 4, max = 25, message = "{User.size.password}")
     private String password;
 
+    @NotNull(message = "{User.notNull.email}")
+    @Size(min = 4, max = 25)
     private String email;
 
+    @NotNull(message = "{User.notNull.firstName}")
+    @Size(min = 3, max = 25, message = "{User.size.firstName}")
     private String firstName;
 
+    @NotNull(message = "{User.notNull.lastName}")
+    @Size(min = 2, max = 25, message = "{User.size.lastName}")
     private String lastName;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")

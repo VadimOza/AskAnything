@@ -35,6 +35,17 @@ function answerItJquery() {
         }).send();
 
     });
+
+
+    $('.regform').submit(function () {
+        var password = document.getElementById("password").value;
+        var confirmPassword = document.getElementById("confirm").value;
+        if (password === confirmPassword)
+            return true;
+        $('#password').css("border", "2px solid red");
+        $('#confirm').css("border", "2px solid red");
+        return false;
+    });
 }
 
 function zeroQuestions() {
@@ -44,5 +55,7 @@ function zeroQuestions() {
         $('#noQuestions').hide();
     }
 }
-
 $(document).ready(answerItJquery);
+
+
+
