@@ -59,8 +59,14 @@ public class UserController {
     }
 
     @RequestMapping(value = "/{username}", method = RequestMethod.POST)
-    public String showUserPagePost(@PathVariable String username, @RequestParam("question") String question) {
-        questionDAO.askUser(username, new Question().setQuestion(question));
+    public String showUserPagePost(@PathVariable String username, @RequestParam("question") String question, @RequestParam(value = "anon", required = false) String anon) {
+
+        Question newQuestion = new Question().setQuestion(question);
+
+        String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
+        if (anon == null && !currentUser.equals("anonymousUser"))
+            newQuestion.setAsker(userDao.getUserByUserName(currentUser));
+        questionDAO.askUser(username, newQuestion);
         return "redirect:/user/" + username;
     }
 

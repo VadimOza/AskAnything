@@ -232,6 +232,40 @@ header {
     color: #3366ff;
 }
 
+input[type="checkbox"] {
+    display: none;
+}
+
+label {
+    cursor: pointer;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin-right: 255px;
+    font-size: 18px;
+    font-family: "PTSans", sans-serif;
+    color: #3366ff
+}
+
+input[type="checkbox"] + label:after {
+    border: 3px solid #3366ff;
+    content: "\00a0";
+    display: inline-block;
+    font: 20px/1em sans-serif;
+    height: 16px;
+    margin: 0 .25em 0 0;
+    padding: 0;
+    vertical-align: top;
+    width: 16px;
+}
+
+input[type="checkbox"]:checked + label:after {
+    background: #fff;
+    color: #3366ff;
+    content: "\2713";
+    text-align: center;
+}
+
 .history-question {
     height: auto;
     padding-bottom: 80px;

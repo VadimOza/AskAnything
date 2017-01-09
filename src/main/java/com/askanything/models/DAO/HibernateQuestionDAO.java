@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Timestamp;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,7 +16,7 @@ import java.util.stream.Collectors;
  * Created by VadimOz on 02.12.16.
  */
 @Repository
-public class HibernateQuestionDAO implements QuestionDAO{
+public class HibernateQuestionDAO implements QuestionDAO {
 
     private final QuestionRepository questionRepository;
 
@@ -32,7 +33,10 @@ public class HibernateQuestionDAO implements QuestionDAO{
     public List<Question> getUnansweredQuestions(String username) {
 
         User userFromDB = userRepository.findOneByUsername(username);
-        return userFromDB.getQuestions().stream().filter(q -> q.getAnswer() == null).collect(Collectors.toList());
+        return userFromDB.getQuestions().stream()
+                .filter(q -> q.getAnswer() == null)
+                .sorted(Comparator.comparing(Question::getDate))
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -40,7 +44,7 @@ public class HibernateQuestionDAO implements QuestionDAO{
         User userFromDB = userRepository.findOneByUsername(user.getUsername());
         return userFromDB.getQuestions().stream()
                 .filter(q -> q.getAnswer() != null)
-                .map(q->q.setAsker(new User().setUsername("Anonumis")))//Todo create reference to real asker
+                .sorted(Comparator.comparing(Question::getDate))
                 .collect(Collectors.toList());
     }
 
@@ -49,6 +53,9 @@ public class HibernateQuestionDAO implements QuestionDAO{
 
         User user = userRepository.findOneByUsername(username);
         question.setDate(new Timestamp(System.currentTimeMillis()));
+
+        if (question.getAsker() == null)
+            question.setAsker(userRepository.findOneByUsername("Anonimus"));
 
         user.getQuestions().add(question);
         question.setUser(user);

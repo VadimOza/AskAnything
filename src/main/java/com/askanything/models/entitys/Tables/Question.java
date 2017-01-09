@@ -13,7 +13,7 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "questions")
-public class Question {
+public class Question{
 
     @Id
     @GeneratedValue
@@ -29,10 +29,10 @@ public class Question {
     @Column(name = "answer")
     private String answer;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private User user;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private User asker;
 
     public User getAsker() {

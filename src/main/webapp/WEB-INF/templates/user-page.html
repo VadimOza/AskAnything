@@ -69,6 +69,8 @@
                 <p class="main_btn">
                     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
                     <input type="submit" id="ask" value="Спросить"/>
+		    <input th:if="${anon!=true}" type="checkbox" id="c1" name="anon" checked=""/>
+		    <label for="c1"><span></span>Anonymously</label>
                 </p>
             </form>
         </div>

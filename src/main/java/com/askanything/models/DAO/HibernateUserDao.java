@@ -37,6 +37,13 @@ public class HibernateUserDao implements UserDao, UserDetailsService {
         ath.setUser(firstUser);
         firstUser.addAthority(ath);
         userRepository.save(firstUser);
+
+        userRepository.save(new User().setUsername("Anonimus")
+                .setEmail("someEmail@Watewer")
+                .setEnabled(true)
+                .setFirstName("Anonimus")
+                .setLastName("Anonimusivich")
+                .setPassword("qwerty1234"));
     }
 
 

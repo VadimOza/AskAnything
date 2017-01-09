@@ -36,7 +36,7 @@
     <div class="useranswer" id="useranswers">
         <a href="/"><img id="noQuestions" src="/resources/css/img/noQuestions.png"/></a>
         <form method="post" th:each="qest  : ${questions}" id="lolik">
-            <p><span th:text="${qest.user.username}">Vadim:</span><span id="question" th:name="question"
+            <p><span th:text="${qest.asker.username}">Vadim:</span><span id="question" th:name="question"
                                                                         th:text="${qest.question}"></span></p>
             <textarea id="answer" name="answer" placeholder="Type your answer here..."></textarea>
             <span id="date" th:text="${qest.date}"></span>
