@@ -36,7 +36,6 @@ function answerItJquery() {
 
     });
 
-
     $('.regform').submit(function () {
         var password = document.getElementById("password").value;
         var confirmPassword = document.getElementById("confirm").value;
@@ -45,6 +44,11 @@ function answerItJquery() {
         $('#password').css("border", "2px solid red");
         $('#confirm').css("border", "2px solid red");
         return false;
+    });
+
+    $.each($('.time,.time_b'), function(index){
+        var tere = moment($(this).text());
+        $(this).text(tere.fromNow());
     });
 }
 

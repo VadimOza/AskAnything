@@ -11,11 +11,11 @@
           type='text/css'/>
     <meta charset="utf-8"/>
     <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet"/>
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="http://momentjs.com/downloads/moment.js"></script>
+    <script src="/resources/script/AnswerIt.js" type="text/javascript"></script>
 </head>
 <body>
-<script src="/resources/script/AnswerIt.js" type="text/javascript"></script>
 <header>
     <div class="navbar">
         <div class="menu">
@@ -39,7 +39,8 @@
             <p><span th:text="${qest.asker.username}">Vadim:</span><span id="question" th:name="question"
                                                                         th:text="${qest.question}"></span></p>
             <textarea id="answer" name="answer" placeholder="Type your answer here..."></textarea>
-            <span id="date" th:text="${qest.date}"></span>
+            <span id="date" th:text="${qest.date}" hidden="hidden"></span>
+            <span class="time_b" th:text="${qest.date}"></span>
             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
             <input type="button" value="Answer" class="answerAll" id="answerAll"/>
         </form>

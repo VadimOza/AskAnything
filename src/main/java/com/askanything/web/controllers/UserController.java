@@ -1,10 +1,10 @@
 package com.askanything.web.controllers;
 
-import com.askanything.models.entitys.Tables.Question;
-import com.askanything.models.entitys.User;
 import com.askanything.exceptions.UserNotFoundException;
 import com.askanything.models.DAO.QuestionDAO;
 import com.askanything.models.DAO.UserDao;
+import com.askanything.models.entitys.Tables.Question;
+import com.askanything.models.entitys.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
